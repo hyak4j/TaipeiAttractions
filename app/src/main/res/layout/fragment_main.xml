@@ -18,7 +18,7 @@
         android:layout_width="75dp"
         android:layout_height="30dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/bg_button_corner"
+        android:background="@drawable/bg_lightblue_corner"
         android:text="@string/news"
         android:textColor="@color/white"
         android:textSize="14sp" />
@@ -35,7 +35,7 @@
         android:layout_width="75dp"
         android:layout_height="30dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/bg_button_corner"
+        android:background="@drawable/bg_lightblue_corner"
         android:text="@string/attractions"
         android:textColor="@color/white"
         android:textSize="14sp" />

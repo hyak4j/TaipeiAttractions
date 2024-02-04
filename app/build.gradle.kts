@@ -3,6 +3,13 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+repositories {
+    maven {
+        // For Banner
+        url=uri("https://s01.oss.sonatype.org/content/groups/public")
+    }
+}
+
 android {
     namespace = "com.hyak4j.cb.tarvel.taipei"
     compileSdk = 34
@@ -49,6 +56,10 @@ dependencies {
     val lifecycleVersion = "2.7.0"
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+
+    // Banner
+    implementation ("io.github.youth5201314:banner:2.2.3")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
