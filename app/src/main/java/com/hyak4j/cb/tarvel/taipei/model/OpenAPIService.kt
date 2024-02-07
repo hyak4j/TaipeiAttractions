@@ -16,8 +16,8 @@ interface OpenAPIService {
     @GET("zh-tw/Attractions/All")
     fun getAllAttractions(
         @Header("Accept") acceptHeader: String = "application/json",
-        @Query("nlat") nlat: Double, // 查詢附近景點，經緯度(北緯) WGS84
-        @Query("elong") elong: Double, // 查詢附近景點，經緯度(東經) WGS84
+        @Query("nlat") nlat: Double? = null, // 查詢附近景點，經緯度(北緯) WGS84
+        @Query("elong") elong: Double? = null, // 查詢附近景點，經緯度(東經) WGS84
         @Query("page") page: Int // 頁碼。(每次回應30筆資料)
     ): Call<Attractions>
 
