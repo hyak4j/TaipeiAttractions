@@ -9,8 +9,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hyak4j.cb.tarvel.taipei.databinding.FragmentMainBinding
+import com.hyak4j.cb.tarvel.taipei.model.attractions.AttractionRepository
 import com.hyak4j.cb.tarvel.taipei.model.news.NewsRepository
 import com.hyak4j.cb.tarvel.taipei.ui.view.news.NewsViewModel
+import com.hyak4j.cb.tarvel.taipei.ui.viewmodel.attractions.AttractionAdapter
+import com.hyak4j.cb.tarvel.taipei.ui.viewmodel.attractions.AttractionViewModel
+import com.hyak4j.cb.tarvel.taipei.ui.viewmodel.attractions.AttractionViewModelFactory
 import com.hyak4j.cb.tarvel.taipei.ui.viewmodel.news.NewsAdapter
 import com.hyak4j.cb.tarvel.taipei.ui.viewmodel.news.NewsViewModelFactory
 import kotlinx.coroutines.CoroutineScope
@@ -20,9 +24,15 @@ import kotlinx.coroutines.withContext
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
+    // 最新消息
     private lateinit var newsViewModel: NewsViewModel
     private val newsRepository by lazy {
         NewsRepository()
+    }
+    // 遊憩景點
+    private lateinit var attractionViewModel: AttractionViewModel
+    private val attractionRepository by lazy {
+        AttractionRepository()
     }
 
 
@@ -48,9 +58,27 @@ class MainFragment : Fragment() {
             }
         }
 
+        // 遊憩景點
+        attractionViewModel = ViewModelProvider(this, AttractionViewModelFactory(attractionRepository))
+            .get(AttractionViewModel::class.java)
+
+        attractionViewModel.attraction.observe(viewLifecycleOwner) { attraction ->
+            binding.recyclerviewAttractions.apply {
+                setHasFixedSize(true)
+                layoutManager = LinearLayoutManager(
+                    this@MainFragment.requireContext(),
+                    RecyclerView.VERTICAL,
+                    false)
+                val attractionAdapter = AttractionAdapter(attraction, this@MainFragment.requireContext())
+                attractionAdapter.updateData(attraction)
+                adapter = attractionAdapter
+            }
+        }
+
         CoroutineScope(Dispatchers.IO).launch {
             withContext(Dispatchers.Main) {
                 newsViewModel.getNews()
+                attractionViewModel.getAttraction()
             }
         }
 

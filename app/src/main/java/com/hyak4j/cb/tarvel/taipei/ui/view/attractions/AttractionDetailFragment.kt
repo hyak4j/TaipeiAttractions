@@ -6,16 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.hyak4j.cb.tarvel.taipei.R
-import com.hyak4j.cb.tarvel.taipei.ui.viewmodel.attractions.AttractionDetailViewModel
 
 class AttractionDetailFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = AttractionDetailFragment()
-    }
-
-    private lateinit var viewModel: AttractionDetailViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
