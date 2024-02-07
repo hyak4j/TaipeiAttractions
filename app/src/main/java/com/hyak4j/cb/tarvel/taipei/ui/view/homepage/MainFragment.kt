@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.hyak4j.cb.tarvel.taipei.R
 import com.hyak4j.cb.tarvel.taipei.databinding.FragmentMainBinding
 import com.hyak4j.cb.tarvel.taipei.model.attractions.AttractionRepository
 import com.hyak4j.cb.tarvel.taipei.model.news.NewsRepository
@@ -41,6 +42,8 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
+
+
 
         // 最新消息
         newsViewModel = ViewModelProvider(this, NewsViewModelFactory(newsRepository))
@@ -79,6 +82,8 @@ class MainFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 newsViewModel.getNews()
                 attractionViewModel.getAttraction()
+                // 景點總數顯示
+                binding.txtAttractionNumber.text = "${resources.getString(R.string.taipei_attractions)}  ${AttractionRepository().getAttractions().total.toString()}"
             }
         }
 

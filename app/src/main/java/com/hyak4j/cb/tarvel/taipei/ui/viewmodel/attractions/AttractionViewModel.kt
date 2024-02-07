@@ -15,7 +15,7 @@ class AttractionViewModel(private val attractionRepository: AttractionRepository
     fun getAttraction() {
         viewModelScope.launch {
             val response = attractionRepository.getAttractions()
-            _attraction.value = response
+            _attraction.value = response.attractions
         }
     }
 }

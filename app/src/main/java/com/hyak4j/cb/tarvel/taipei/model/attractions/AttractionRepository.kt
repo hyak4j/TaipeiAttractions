@@ -10,10 +10,12 @@ class AttractionRepository {
     }
 
     // 專職向OpenAPI取得遊憩景點
-    suspend fun getAttractions(): List<Attraction> {
+    suspend fun getAttractions(): AttractionResponse {
         return withContext(Dispatchers.IO) {
             val response = openAPIService.getAllAttractions(page = 1).execute()
-            response.body()?.data?: listOf()
+            val attractions = response.body()?.data?: listOf()
+            val total = response.body()?.total?: 0
+            AttractionResponse(attractions, total)
         }
     }
 }
