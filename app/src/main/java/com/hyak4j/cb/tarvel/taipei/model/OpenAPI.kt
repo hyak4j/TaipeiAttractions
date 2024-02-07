@@ -4,11 +4,13 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class OpenAPI {
+object OpenAPI {
     // 臺北旅遊網-旅遊資訊API
     private val apiUrl = "https://www.travel.taipei/open-api/"
     private val okHttpClient = OkHttpClient.Builder().build()
-    val openAPIService = getRetrofit().create(OpenAPIService::class.java)
+    val openAPIService by lazy {
+        getRetrofit().create(OpenAPIService::class.java)
+    }
 
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
