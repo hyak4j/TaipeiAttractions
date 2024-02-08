@@ -51,7 +51,9 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
-
+        // 主頁不須顯示返回
+        (activity as AppCompatActivity?)?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        (activity as AppCompatActivity?)?.supportActionBar?.setDisplayShowHomeEnabled(false)
         // 需設置menu才會顯示
         setHasOptionsMenu(true)
 

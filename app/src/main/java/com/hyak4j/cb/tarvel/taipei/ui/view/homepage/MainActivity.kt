@@ -2,6 +2,7 @@ package com.hyak4j.cb.tarvel.taipei.ui.view.homepage
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import com.hyak4j.cb.tarvel.taipei.R
 import com.hyak4j.cb.tarvel.taipei.databinding.ActivityMainBinding
@@ -22,5 +23,15 @@ class MainActivity : AppCompatActivity() {
         // Actionbar
         supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         supportActionBar?.setCustomView(R.layout.action_bar)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

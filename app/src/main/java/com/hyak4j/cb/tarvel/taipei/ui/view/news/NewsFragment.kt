@@ -23,7 +23,10 @@ class NewsFragment(private val url: String) : Fragment() {
     ): View {
         binding = FragmentNewsBinding.inflate(inflater, container, false)
 
+        // 設置ActionBar返回按鈕
         val actionBar = (activity as AppCompatActivity?)?.supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setDisplayShowHomeEnabled(true)
         // ActionBar Title更換為最新消息
         val customView = actionBar?.customView
         val textViewTitle = customView?.findViewById<TextView>(R.id.title)
