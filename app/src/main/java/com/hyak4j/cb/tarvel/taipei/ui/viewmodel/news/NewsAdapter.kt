@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hyak4j.cb.tarvel.taipei.R
 import com.hyak4j.cb.tarvel.taipei.databinding.ItemNewsBinding
 import com.hyak4j.cb.tarvel.taipei.model.news.Data
-import com.hyak4j.cb.tarvel.taipei.ui.view.news.NewsFragment
+import com.hyak4j.cb.tarvel.taipei.ui.view.WebViewFragment
 
 class NewsAdapter(private var _news: List<Data>) :
     RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
@@ -30,7 +30,7 @@ class NewsAdapter(private var _news: List<Data>) :
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         holder.binding.root.setOnClickListener {
-            val newFragment = NewsFragment.newInstance(_news.get(position).url)
+            val newFragment = WebViewFragment.newInstance(_news.get(position).url, 0, "")
             val transaction = (holder.itemView.context as AppCompatActivity).supportFragmentManager.beginTransaction()
             transaction.replace(R.id.main_container, newFragment)
             transaction.addToBackStack(null)

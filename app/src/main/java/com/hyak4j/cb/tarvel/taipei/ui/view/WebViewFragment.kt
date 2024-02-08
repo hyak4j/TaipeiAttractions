@@ -1,4 +1,4 @@
-package com.hyak4j.cb.tarvel.taipei.ui.view.news
+package com.hyak4j.cb.tarvel.taipei.ui.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,11 +10,11 @@ import androidx.fragment.app.Fragment
 import com.hyak4j.cb.tarvel.taipei.R
 import com.hyak4j.cb.tarvel.taipei.databinding.FragmentNewsBinding
 
-class NewsFragment(private val url: String) : Fragment() {
+class WebViewFragment(private val url: String, private val source: Int, private val name: String?) : Fragment() {
     private lateinit var binding: FragmentNewsBinding
 
     companion object {
-        fun newInstance(url: String) = NewsFragment(url)
+        fun newInstance(url: String, source: Int, name: String) = WebViewFragment(url, source, name)
     }
 
     override fun onCreateView(
@@ -30,7 +30,11 @@ class NewsFragment(private val url: String) : Fragment() {
         // ActionBar Title更換為最新消息
         val customView = actionBar?.customView
         val textViewTitle = customView?.findViewById<TextView>(R.id.title)
-        textViewTitle?.text = resources.getString(R.string.news)
+        textViewTitle?.text = if (source == 0){
+            resources.getString(R.string.news)
+        } else {
+            name
+        }
 
         // webview相關設定
         val newsWebView = binding.webviewNews

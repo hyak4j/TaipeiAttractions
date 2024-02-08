@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.hyak4j.cb.tarvel.taipei.R
 import com.hyak4j.cb.tarvel.taipei.databinding.FragmentAttractionDetailBinding
 import com.hyak4j.cb.tarvel.taipei.model.attractions.Attraction
+import com.hyak4j.cb.tarvel.taipei.ui.view.WebViewFragment
 import com.hyak4j.cb.tarvel.taipei.ui.viewmodel.attractions.AttractionImageAdapter
 import com.youth.banner.indicator.CircleIndicator
 
@@ -49,6 +50,13 @@ class AttractionDetailFragment(private val attraction: Attraction) : Fragment() 
         binding.txtOfficialSite.text = attraction.official_site
         binding.txtIntroduction.text = attraction.introduction
 
+        binding.txtOfficialSite.setOnClickListener {
+            val newFragment = WebViewFragment.newInstance(attraction.official_site, 1, attraction.name)
+            val transaction = (requireContext() as AppCompatActivity).supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.main_container, newFragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
         return binding.root
     }
 
