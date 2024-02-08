@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">เที่ยวไทเปแบบสบายๆ</string>
+    <string name="taipei_attractions">สถานที่ท่องเที่ยวเมืองไทเป</string>
+    <string name="news">ข่าวล่าสุด</string>
+    <string name="attractions">สถานที่ท่องเที่ยวเชิงสันทนาการ</string>
+    <string name="attractions_image">ภาพสถานที่ท่องเที่ยว</string>
+    <string name="open_time">เวลาทำการ:</string>
+    <string name="address">ที่อยู่:</string>
+    <string name="tel">เบอร์ติดต่อ:</string>
+    <string name="official_site">URL:</string>
+    <string name="select_language">เลือกภาษา</string>
+</resources>

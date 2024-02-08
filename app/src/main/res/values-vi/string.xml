@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Du lịch thoải mái ở Đài Bắc</string>
+    <string name="taipei_attractions">Các điểm tham quan của thành phố Đài Bắc</string>
+    <string name="news">tin mới nhất</string>
+    <string name="attractions">Các điểm vui chơi giải trí</string>
+    <string name="attractions_image">Hình ảnh các địa điểm vui chơi giải trí</string>
+    <string name="open_time">Giờ kinh doanh:</string>
+    <string name="address">Địa chỉ:</string>
+    <string name="tel">Số liên lạc:</string>
+    <string name="official_site">URL:</string>
+    <string name="select_language">Chọn một ngôn ngữ</string>
+</resources>
