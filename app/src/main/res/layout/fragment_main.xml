@@ -15,7 +15,7 @@
 
     <Button
         android:id="@+id/btn_news"
-        android:layout_width="75dp"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/bg_lightblue_corner"
@@ -32,7 +32,7 @@
 
     <Button
         android:id="@+id/btn_attractions"
-        android:layout_width="75dp"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/bg_lightblue_corner"

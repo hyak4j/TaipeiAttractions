@@ -1,6 +1,7 @@
 package com.hyak4j.cb.tarvel.taipei.ui.view.homepage
 
 import android.app.AlertDialog
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -8,6 +9,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +30,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Locale
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
@@ -159,6 +163,11 @@ class MainFragment : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             withContext(Dispatchers.Main) {
                 val currentLanguage = LanguageManager.getLanguage()
+
+                setAppLocale(currentLanguage)
+
+                updateActionBar()
+
                 // 取得最新消息
                 newsViewModel.getNews(currentLanguage)
                 // 取得遊憩景點
@@ -168,7 +177,33 @@ class MainFragment : Fragment() {
                     "${resources.getString(R.string.taipei_attractions)}  ${
                         AttractionRepository().getAttractions(currentLanguage).total.toString()
                     }"
+
+                binding.btnAttractions.text = resources.getString(R.string.attractions)
+                binding.btnNews.text = resources.getString(R.string.news)
             }
+        }
+    }
+
+    private fun setAppLocale(currentLanguage: String) {
+        // 設定APP區域設定
+        val newLocale = Locale(currentLanguage)
+        Locale.setDefault(newLocale)
+        val configuration = Configuration(resources.configuration)
+        configuration.setLocale(newLocale)
+        resources.updateConfiguration(configuration, resources.displayMetrics)
+    }
+
+    private fun updateActionBar() {
+        /*
+           透過setCustomView 設定actionBar Title需要這樣處理
+           若是supportActionBar?.setDisplayShowTitleEnabled(true) => 可直接依語系變化呈現
+         */
+        val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
+        val customView = actionBar?.customView
+
+        if (customView != null) {
+            val txtTitle = customView.findViewById<TextView>(R.id.title)
+            txtTitle?.text = resources.getString(R.string.app_name)
         }
     }
 }
