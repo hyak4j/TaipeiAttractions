@@ -12,9 +12,9 @@ class AttractionViewModel(private val attractionRepository: AttractionRepository
     private var _attraction = MutableLiveData<List<Attraction>>()
     val attraction: LiveData<List<Attraction>> get() = _attraction
 
-    fun getAttraction() {
+    fun getAttraction(language: String) {
         viewModelScope.launch {
-            val response = attractionRepository.getAttractions()
+            val response = attractionRepository.getAttractions(language)
             _attraction.value = response.attractions
         }
     }

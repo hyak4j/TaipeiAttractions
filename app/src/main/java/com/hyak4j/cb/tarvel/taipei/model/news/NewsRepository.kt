@@ -10,9 +10,9 @@ class NewsRepository {
     }
 
     // 專職向OpenAPI取得最新消息
-    suspend fun getNews(): List<Data> {
+    suspend fun getNews(language: String): List<Data> {
         return withContext(Dispatchers.IO) {
-            val response = openAPIService.getNews(page = 1).execute()
+            val response = openAPIService.getNews(lang = language, page = 1).execute()
             response.body()?.data?: listOf()
         }
     }

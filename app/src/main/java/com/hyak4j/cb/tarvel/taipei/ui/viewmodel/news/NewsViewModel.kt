@@ -13,9 +13,9 @@ class NewsViewModel(private val newsRepository: NewsRepository) : ViewModel() {
     private var _news = MutableLiveData<List<Data>>()
     val news: LiveData<List<Data>> get() = _news
 
-    fun getNews() {
+    fun getNews(language: String) {
         viewModelScope.launch {
-            val response = newsRepository.getNews()
+            val response = newsRepository.getNews(language)
             _news.value = response
         }
     }

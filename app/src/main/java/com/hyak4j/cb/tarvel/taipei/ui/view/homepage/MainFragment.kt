@@ -1,7 +1,11 @@
 package com.hyak4j.cb.tarvel.taipei.ui.view.homepage
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -9,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hyak4j.cb.tarvel.taipei.R
+import com.hyak4j.cb.tarvel.taipei.config.LanguageManager
 import com.hyak4j.cb.tarvel.taipei.databinding.FragmentMainBinding
 import com.hyak4j.cb.tarvel.taipei.model.attractions.AttractionRepository
 import com.hyak4j.cb.tarvel.taipei.model.news.NewsRepository
@@ -43,7 +48,8 @@ class MainFragment : Fragment() {
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
 
-
+        // 需設置menu才會顯示
+        setHasOptionsMenu(true)
 
         // 最新消息
         newsViewModel = ViewModelProvider(this, NewsViewModelFactory(newsRepository))
@@ -78,14 +84,7 @@ class MainFragment : Fragment() {
             }
         }
 
-        CoroutineScope(Dispatchers.IO).launch {
-            withContext(Dispatchers.Main) {
-                newsViewModel.getNews()
-                attractionViewModel.getAttraction()
-                // 景點總數顯示
-                binding.txtAttractionNumber.text = "${resources.getString(R.string.taipei_attractions)}  ${AttractionRepository().getAttractions().total.toString()}"
-            }
-        }
+        refreshUI()
 
         return binding.root
     }
@@ -94,4 +93,82 @@ class MainFragment : Fragment() {
         super.onDestroyView()
     }
 
+    // 語系選擇
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_language -> {
+                showLanguageSelectionDialog()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showLanguageSelectionDialog() {
+        /*     支援語系
+            zh-tw -繁體中文
+            zh-cn -簡體中文
+            en -英文
+            ja -日文
+            ko -韓文
+            es -西班牙文
+            th -泰文
+            vi -越南文
+            id -印尼文
+         */
+        val languageOptions = arrayOf(
+            "繁體中文",
+            "简体中文",
+            "English",
+            "日本語",
+            "한국어",
+            "Español",
+            "แบบไทย",
+            "Tiếng Việt",
+            "bahasa Indonesia"
+        )
+
+        AlertDialog.Builder(requireContext())
+            .setTitle(resources.getString(R.string.select_language))
+            .setItems(languageOptions) { _, which ->
+                // 選擇語系
+                val selectedLanguage = when (which) {
+                    0 -> "zh-tw"
+                    1 -> "zh-cn"
+                    2 -> "en"
+                    3 -> "ja"
+                    4 -> "ko"
+                    5 -> "es"
+                    6 -> "th"
+                    7 -> "vi"
+                    8 -> "id"
+                    else -> "zh-tw"
+                }
+                LanguageManager.setLanguage(selectedLanguage)
+                refreshUI()
+            }
+            .show()
+    }
+
+    private fun refreshUI() {
+        CoroutineScope(Dispatchers.IO).launch {
+            withContext(Dispatchers.Main) {
+                val currentLanguage = LanguageManager.getLanguage()
+                // 取得最新消息
+                newsViewModel.getNews(currentLanguage)
+                // 取得遊憩景點
+                attractionViewModel.getAttraction(currentLanguage)
+                // 景點總數顯示
+                binding.txtAttractionNumber.text =
+                    "${resources.getString(R.string.taipei_attractions)}  ${
+                        AttractionRepository().getAttractions(currentLanguage).total.toString()
+                    }"
+            }
+        }
+    }
 }
