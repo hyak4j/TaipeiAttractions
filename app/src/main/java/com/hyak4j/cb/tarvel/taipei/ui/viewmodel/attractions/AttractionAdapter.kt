@@ -34,11 +34,13 @@ class AttractionAdapter(private var _attractions: List<Attraction>, val context:
 
     override fun onBindViewHolder(holder: AttractionViewHolder, position: Int) {
         holder.binding.root.setOnClickListener {
-            val attractionDetailFragment = AttractionDetailFragment.newInstance(_attractions[position])
-            val transaction = (holder.itemView.context as AppCompatActivity).supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.main_container, attractionDetailFragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+            seeAttractionDetail(position, holder)
+        }
+        holder.binding.btnAttractionName.setOnClickListener {
+            seeAttractionDetail(position, holder)
+        }
+        holder.binding.imageButton.setOnClickListener {
+            seeAttractionDetail(position, holder)
         }
         if (position < _attractions.size) {
             val currentAttraction = _attractions[position]
@@ -54,6 +56,18 @@ class AttractionAdapter(private var _attractions: List<Attraction>, val context:
             holder.binding.btnAttractionName.text = currentAttraction.name
             holder.binding.txtAttractionIntroduction.text = currentAttraction.introduction
         }
+    }
+
+    private fun seeAttractionDetail(
+        position: Int,
+        holder: AttractionViewHolder
+    ) {
+        val attractionDetailFragment = AttractionDetailFragment.newInstance(_attractions[position])
+        val transaction =
+            (holder.itemView.context as AppCompatActivity).supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.main_container, attractionDetailFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
     fun updateData(newAttractions: List<Attraction>) {
