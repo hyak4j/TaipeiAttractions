@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.hyak4j.cb.tarvel.taipei.R
 import com.hyak4j.cb.tarvel.taipei.databinding.FragmentAttractionDetailBinding
 import com.hyak4j.cb.tarvel.taipei.model.attractions.Attraction
 import com.hyak4j.cb.tarvel.taipei.ui.viewmodel.attractions.AttractionImageAdapter
@@ -21,6 +24,15 @@ class AttractionDetailFragment(private val attraction: Attraction) : Fragment() 
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAttractionDetailBinding.inflate(inflater, container, false)
+
+        // 設置ActionBar返回按鈕
+        val actionBar = (activity as AppCompatActivity?)?.supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setDisplayShowHomeEnabled(true)
+        // ActionBar Title更換為景點名稱
+        val customView = actionBar?.customView
+        val textViewTitle = customView?.findViewById<TextView>(R.id.title)
+        textViewTitle?.text = attraction.name
 
         // 圖片Banner
         val attractionImages = attraction.images
