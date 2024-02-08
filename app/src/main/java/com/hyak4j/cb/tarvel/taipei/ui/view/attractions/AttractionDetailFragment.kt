@@ -43,7 +43,13 @@ class AttractionDetailFragment(private val attraction: Attraction) : Fragment() 
             .setAdapter(adapter)
             .indicator = CircleIndicator(requireContext())
 
-        // 遊憩景點文字資訊
+        // 若無資料，隱藏其TextView
+        binding.txtOpenTime.visibility = if (attraction.open_time.isEmpty()) View.GONE else View.VISIBLE
+        binding.txtAddress.visibility = if (attraction.address.isEmpty()) View.GONE else View.VISIBLE
+        binding.txtTel.visibility = if (attraction.tel.isEmpty()) View.GONE else View.VISIBLE
+        binding.txtOfficialSite.visibility = if (attraction.official_site.isEmpty()) View.GONE else View.VISIBLE
+        binding.txtIntroduction.visibility = if (attraction.introduction.isEmpty()) View.GONE else View.VISIBLE
+        // 遊憩景點文字資訊顯示
         binding.txtOpenTime.text = attraction.open_time
         binding.txtAddress.text = attraction.address
         binding.txtTel.text = attraction.tel
