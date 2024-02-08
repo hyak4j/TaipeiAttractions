@@ -17,7 +17,7 @@
         android:id="@+id/btn_news"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/bg_lightblue_corner"
         android:text="@string/news"
         android:textColor="@color/white"
@@ -30,11 +30,20 @@
         android:layout_marginTop="10dp"
         android:layout_weight="2" />
 
+    <ProgressBar
+        android:id="@+id/pg_main"
+        android:indeterminate="true"
+        android:visibility="gone"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" />
+
     <Button
         android:id="@+id/btn_attractions"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/bg_lightblue_corner"
         android:text="@string/attractions"
         android:textColor="@color/white"

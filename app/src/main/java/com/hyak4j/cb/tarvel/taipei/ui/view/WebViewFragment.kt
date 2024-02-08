@@ -4,14 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.hyak4j.cb.tarvel.taipei.R
-import com.hyak4j.cb.tarvel.taipei.databinding.FragmentNewsBinding
+import com.hyak4j.cb.tarvel.taipei.databinding.FragmentWebviewBinding
 
 class WebViewFragment(private val url: String, private val source: Int, private val name: String?) : Fragment() {
-    private lateinit var binding: FragmentNewsBinding
+    private lateinit var binding: FragmentWebviewBinding
 
     companion object {
         fun newInstance(url: String, source: Int, name: String) = WebViewFragment(url, source, name)
@@ -21,8 +23,8 @@ class WebViewFragment(private val url: String, private val source: Int, private 
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentNewsBinding.inflate(inflater, container, false)
-
+        binding = FragmentWebviewBinding.inflate(inflater, container, false)
+        binding.progressBar.visibility = View.VISIBLE
         // 設置ActionBar返回按鈕
         val actionBar = (activity as AppCompatActivity?)?.supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -37,10 +39,16 @@ class WebViewFragment(private val url: String, private val source: Int, private 
         }
 
         // webview相關設定
-        val newsWebView = binding.webviewNews
-        val webSettings = newsWebView.settings
+        val webView = binding.webview
+        webView.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                binding.progressBar.visibility = View.GONE
+            }
+        }
+        val webSettings = webView.settings
         webSettings.javaScriptEnabled = true
-        newsWebView.loadUrl(url)
+        webView.loadUrl(url)
 
         return binding.root
     }

@@ -89,7 +89,7 @@ class MainFragment : Fragment() {
                 adapter = attractionAdapter
             }
         }
-
+        binding.pgMain.visibility = View.VISIBLE
         refreshUI()
 
         return binding.root
@@ -156,6 +156,7 @@ class MainFragment : Fragment() {
                     else -> "zh-tw"
                 }
                 LanguageManager.setLanguage(selectedLanguage)
+                binding.pgMain.visibility = View.VISIBLE
                 refreshUI()
             }
             .show()
@@ -179,7 +180,7 @@ class MainFragment : Fragment() {
                     "${resources.getString(R.string.taipei_attractions)}  ${
                         AttractionRepository().getAttractions(currentLanguage).total.toString()
                     }"
-
+                binding.pgMain.visibility = View.GONE
                 binding.btnAttractions.text = resources.getString(R.string.attractions)
                 binding.btnNews.text = resources.getString(R.string.news)
             }
