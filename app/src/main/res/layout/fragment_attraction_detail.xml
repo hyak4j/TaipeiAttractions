@@ -7,6 +7,7 @@
     tools:context=".ui.view.attractions.AttractionDetailFragment">
 
     <com.youth.banner.Banner
+        android:id="@+id/banner_image"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginStart="50dp"
@@ -53,15 +54,26 @@
         android:padding="8dp"
         android:text="@string/official_site" />
 
-    <TextView
-        android:id="@+id/txt_introduction"
+
+    <ScrollView
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bg_white_corner"
-        android:padding="8dp" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/txt_introduction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/light_blue"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:padding="20dp" />
+
+    </ScrollView>
 
 
 </LinearLayout>

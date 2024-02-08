@@ -3,10 +3,13 @@ package com.hyak4j.cb.tarvel.taipei.ui.viewmodel.attractions
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.hyak4j.cb.tarvel.taipei.R
 import com.hyak4j.cb.tarvel.taipei.databinding.ItemAttractionBinding
 import com.hyak4j.cb.tarvel.taipei.model.attractions.Attraction
+import com.hyak4j.cb.tarvel.taipei.ui.view.attractions.AttractionDetailFragment
 import java.lang.Integer.min
 
 class AttractionAdapter(private var _attractions: List<Attraction>, val context: Context) :
@@ -30,6 +33,13 @@ class AttractionAdapter(private var _attractions: List<Attraction>, val context:
     }
 
     override fun onBindViewHolder(holder: AttractionViewHolder, position: Int) {
+        holder.binding.root.setOnClickListener {
+            val attractionDetailFragment = AttractionDetailFragment.newInstance(_attractions[position])
+            val transaction = (holder.itemView.context as AppCompatActivity).supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.main_container, attractionDetailFragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
         if (position < _attractions.size) {
             val currentAttraction = _attractions[position]
 
