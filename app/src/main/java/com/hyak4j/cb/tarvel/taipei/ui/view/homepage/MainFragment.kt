@@ -69,6 +69,10 @@ class MainFragment : Fragment() {
                     RecyclerView.VERTICAL,
                     false
                 )
+                // 無資訊於列表呈現之處理
+                if (news.isEmpty()) binding.viewNewsNoresults.visibility = View.VISIBLE
+                else binding.viewNewsNoresults.visibility = View.GONE
+
                 adapter = NewsAdapter(news)
             }
         }
@@ -84,6 +88,10 @@ class MainFragment : Fragment() {
                     this@MainFragment.requireContext(),
                     RecyclerView.VERTICAL,
                     false)
+                // 無資訊於列表呈現之處理
+                if (attraction.isEmpty()) binding.viewAttractionNoresults.visibility = View.VISIBLE
+                else binding.viewAttractionNoresults.visibility = View.GONE
+
                 val attractionAdapter = AttractionAdapter(attraction, this@MainFragment.requireContext())
                 attractionAdapter.updateData(attraction)
                 adapter = attractionAdapter
