@@ -37,11 +37,15 @@ class AttractionDetailFragment(private val attraction: Attraction) : Fragment() 
 
         // 圖片Banner
         val attractionImages = attraction.images
-        val adapter = AttractionImageAdapter(attractionImages)
-        binding.bannerImage
-            .addBannerLifecycleObserver(this)
-            .setAdapter(adapter)
-            .indicator = CircleIndicator(requireContext())
+        if (attractionImages.isNotEmpty()) {
+            val adapter = AttractionImageAdapter(attractionImages)
+            binding.bannerImage
+                .addBannerLifecycleObserver(this)
+                .setAdapter(adapter)
+                .indicator = CircleIndicator(requireContext())
+        } else {
+            binding.bannerImage.visibility = View.GONE
+        }
 
         // 若無資料，隱藏其TextView
         binding.txtOpenTime.visibility = if (attraction.open_time.isEmpty()) View.GONE else View.VISIBLE
