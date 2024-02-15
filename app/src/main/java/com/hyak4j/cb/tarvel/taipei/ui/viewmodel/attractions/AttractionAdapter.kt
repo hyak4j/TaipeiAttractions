@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hyak4j.cb.tarvel.taipei.R
@@ -46,11 +47,15 @@ class AttractionAdapter(private var _attractions: List<Attraction>, val context:
             val currentAttraction = _attractions[position]
 
             // 檢查 images不為空
+            val attractionImage = holder.binding.ivAttractionImage
             if (currentAttraction.images.isNotEmpty()) {
-                val attractionImage = holder.binding.ivAttractionImage
                 Glide.with(context)
                     .load(currentAttraction.images[0].src)
                     .into(attractionImage)
+            } else {
+                // API無提供圖片處理
+                attractionImage.setImageDrawable(ResourcesCompat
+                    .getDrawable(context.resources, R.drawable.ic_noimage, null))
             }
 
             holder.binding.btnAttractionName.text = currentAttraction.name
