@@ -12,11 +12,21 @@ import androidx.fragment.app.Fragment
 import com.hyak4j.cb.tarvel.taipei.R
 import com.hyak4j.cb.tarvel.taipei.databinding.FragmentWebviewBinding
 
-class WebViewFragment(private val url: String, private val source: Int, private val name: String?) : Fragment() {
+class WebViewFragment() : Fragment() {
     private lateinit var binding: FragmentWebviewBinding
-
+    private lateinit var url: String
+    private var source: Int = 0
+    private var name: String? = null
     companion object {
-        fun newInstance(url: String, source: Int, name: String) = WebViewFragment(url, source, name)
+        fun newInstance(url: String, source: Int, name: String?): WebViewFragment {
+            val fragment = WebViewFragment()
+            val args = Bundle()
+            args.putString("url", url)
+            args.putInt("source", source)
+            args.putString("name", name)
+            fragment.arguments = args
+            return fragment
+        }
     }
 
     override fun onCreateView(
@@ -51,6 +61,15 @@ class WebViewFragment(private val url: String, private val source: Int, private 
         webView.loadUrl(url)
 
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            url = it.getString("url", "")
+            source = it.getInt("source", 0)
+            name = it.getString("name", "")
+        }
     }
 
     override fun onDestroyView() {

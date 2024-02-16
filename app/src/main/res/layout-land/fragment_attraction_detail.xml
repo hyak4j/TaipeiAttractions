@@ -8,8 +8,9 @@
 
     <com.youth.banner.Banner
         android:id="@+id/banner_image"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp" />
 
